@@ -333,7 +333,7 @@ function App() {
       <div className='noise'></div>
       {!isModelLoaded && <div className="loading">
         <div className='loading-wrapper'>
-            <img className='loading-img' src="/loading.webp" alt="Loading" />
+            <img className='loading-img' src="/test-site/public/loading.webp" alt="Loading" />
           <p className='loading-text'>
             Loading...
           </p>
