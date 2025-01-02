@@ -315,10 +315,93 @@ function App() {
       }
     };
 
+    //タッチ操作イベント
+
+    const handleTouchStart = (event: TouchEvent) => {
+      if (event.touches.length === 1) { // マルチタッチを無視
+        isDragging.current = true;
+        prevMousePos.current = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+        };
+      }
+    };
+    
+    const handleTouchMove = (event: TouchEvent) => {
+      if (isDragging.current && event.touches.length === 1) {
+        const deltaX = event.touches[0].clientX - prevMousePos.current.x;
+        const deltaY = event.touches[0].clientY - prevMousePos.current.y;
+    
+        prevMousePos.current = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+        };
+    
+        const rotationSpeed = 0.005;
+        cameraAngles.current.horizontal += deltaX * rotationSpeed;
+        cameraAngles.current.vertical -= deltaY * rotationSpeed;
+    
+        cameraAngles.current.vertical = Math.max(
+          -Math.PI / 2,
+          Math.min(Math.PI / 2, cameraAngles.current.vertical)
+        );
+    
+        const radius = Math.sqrt(
+          initialPosition.current.x ** 2 +
+          initialPosition.current.y ** 2 +
+          initialPosition.current.z ** 2
+        );
+    
+        const x = radius * Math.cos(cameraAngles.current.vertical) * Math.sin(cameraAngles.current.horizontal);
+        const y = Math.max(1, radius * Math.sin(cameraAngles.current.vertical));
+        const z = radius * Math.cos(cameraAngles.current.vertical) * Math.cos(cameraAngles.current.horizontal);
+    
+        camera.position.set(x, y, z);
+        camera.lookAt(target);
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (isDragging.current) {
+        isDragging.current = false;
+    
+        // スムーズに元の角度に戻すアニメーション
+        gsap.to(cameraAngles.current, {
+          horizontal: Math.atan2(initialPosition.current.x, initialPosition.current.z),
+          vertical: Math.asin(initialPosition.current.y / Math.sqrt(
+            initialPosition.current.x ** 2 +
+            initialPosition.current.y ** 2 +
+            initialPosition.current.z ** 2
+          )),
+          duration: 1,
+          ease: "power2.out",
+          onUpdate: () => {
+            const radius = Math.sqrt(
+              initialPosition.current.x ** 2 +
+              initialPosition.current.y ** 2 +
+              initialPosition.current.z ** 2
+            );
+    
+            const x = radius * Math.cos(cameraAngles.current.vertical) * Math.sin(cameraAngles.current.horizontal);
+            const y = Math.max(1, radius * Math.sin(cameraAngles.current.vertical));
+            const z = radius * Math.cos(cameraAngles.current.vertical) * Math.cos(cameraAngles.current.horizontal);
+    
+            camera.position.set(x, y, z);
+            camera.lookAt(target);
+          },
+        });
+      }
+    };
+
     window.addEventListener("resize", handleResize);
     canvas.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
+
+          // タッチ操作イベント
+  canvas.addEventListener("touchstart", handleTouchStart);
+  window.addEventListener("touchmove", handleTouchMove);
+  window.addEventListener("touchend", handleTouchEnd);
 
     const renderLoop = () => {
       requestAnimationFrame(renderLoop);
@@ -331,6 +414,11 @@ function App() {
       canvas.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
+
+      canvas.removeEventListener("touchstart", handleTouchStart);
+    window.removeEventListener("touchmove", handleTouchMove);
+    window.removeEventListener("touchend", handleTouchEnd);
+
     };
   }, [isModelLoaded]);
 
