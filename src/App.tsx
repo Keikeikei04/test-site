@@ -126,7 +126,7 @@ function App() {
 
     // GLTFモデルローダーを使用してメインモデルをロード
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load('/models/testmodel0101_v2.gltf', (gltf) => {
+    gltfLoader.load('./models/testmodel0101_v2.gltf', (gltf) => {
       const model = gltf.scene;
       const animations = gltf.animations;
       
@@ -166,7 +166,7 @@ function App() {
     });
 
     // 子モデルをロードして追加
-    gltfLoader.load('/models/testmodel_child_.gltf', (gltf) => {
+    gltfLoader.load('./models/testmodel_child_.gltf', (gltf) => {
       const childModel = gltf.scene;
       const childAnimations = gltf.animations;
 
@@ -216,7 +216,7 @@ function App() {
     // 水面を作成
     const waterGeometry = new THREE.PlaneGeometry(1000, 1000);
     const waterNormals = new THREE.TextureLoader().load(
-      '/textures/eslint.config.jpg',
+      './textures/eslint.config.jpg',
       (texture) => {
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       }
@@ -333,7 +333,7 @@ function App() {
       <div className='noise'></div>
       {!isModelLoaded && <div className="loading">
         <div className='loading-wrapper'>
-        <img className='loading-img' src={'/images/loading.gif'} alt="Loading" />
+        <img className='loading-img' src={'./images/loading.gif'} alt="Loading" />
         <p className='loading-text'>
             Loading...
           </p>
@@ -352,7 +352,7 @@ function App() {
       <div className='container'>
         <div className="inner">
           <div className="img2025">
-            <img src={'/images/2025.svg'} alt="二〇二五" />
+            <img src={'./images/2025.svg'} alt="二〇二五" />
           </div>
           <div className="text">
             <p>
@@ -362,7 +362,7 @@ function App() {
             </p>
           </div>
           <div className="copy-text">
-            <img src={'/images/text_2.svg'} alt="日の目を見る" width="174" height="680" />
+            <img src={'./images/text_2.svg'} alt="日の目を見る" width="174" height="680" />
           </div>
         </div>
       </div>
