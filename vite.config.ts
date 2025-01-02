@@ -1,10 +1,11 @@
-import { defineConfig, ConfigEnv } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig(({ mode }: ConfigEnv) => ({
+export default defineConfig({
   plugins: [react()],
-  base: mode === 'production' ? '/test-site/' : '/', // 本番環境では /test-site/ を使用
+  base: '/test-site/', // GitHub Pages のプロジェクト名を指定
   build: {
-    outDir: 'docs', // 出力先を指定
+    outDir: 'docs', // GitHub Pages のために出力先を設定
   },
-}));
+});
+
