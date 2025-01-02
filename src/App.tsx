@@ -58,6 +58,7 @@ function App() {
     scene.add(camera);
 
     // カメラの降下アニメーション
+    const startCameraAnimation = () => {
     gsap.to(camera.position, {
       x: initialPosition.current.x, // 目標位置を通常の初期位置に設定
       y: initialPosition.current.y, // 目標位置を通常の初期位置に設定
@@ -67,6 +68,11 @@ function App() {
         camera.lookAt(target); // アニメーション中も常に注視点を向く
       },
     });
+  };
+
+  if (isModelLoaded) {
+    startCameraAnimation();
+  }
 
     // カメラの回転角度を計算し、保存
     const radius = Math.sqrt(
@@ -326,7 +332,7 @@ function App() {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, []);
+  }, [isModelLoaded]);
 
   return (
     <>
