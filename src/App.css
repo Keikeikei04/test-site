@@ -24,8 +24,8 @@ body {
 }
 
 .loading.hidden {
-    opacity: 0; /* 完全に透明に */
-    pointer-events: none; /* マウスイベントを無効化 */
+    opacity: 0;
+    pointer-events: none;
 }
 
 .loading-wrapper{
@@ -114,7 +114,6 @@ canvas {
     top: 0;
     left: 0;
     transition: opacity 1s ease-in-out;
-
 }
 
 .container {

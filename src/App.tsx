@@ -59,20 +59,20 @@ function App() {
 
     // カメラの降下アニメーション
     const startCameraAnimation = () => {
-    gsap.to(camera.position, {
-      x: initialPosition.current.x, // 目標位置を通常の初期位置に設定
-      y: initialPosition.current.y, // 目標位置を通常の初期位置に設定
-      duration: 3.5, // アニメーションの長さ（秒）
-      ease: "circ.out", // イージング効果
-      onUpdate: () => {
-        camera.lookAt(target); // アニメーション中も常に注視点を向く
-      },
-    });
-  };
+      gsap.to(camera.position, {
+        x: initialPosition.current.x, // 目標位置を通常の初期位置に設定
+        y: initialPosition.current.y, // 目標位置を通常の初期位置に設定
+        duration: 3.5, // アニメーションの長さ（秒）
+        ease: "circ.out", // イージング効果
+        onUpdate: () => {
+          camera.lookAt(target); // アニメーション中も常に注視点を向く
+        },
+      });
+    };
 
-  if (isModelLoaded) {
-    startCameraAnimation();
-  }
+    if (isModelLoaded) {
+      startCameraAnimation();
+    }
 
     // カメラの回転角度を計算し、保存
     const radius = Math.sqrt(
@@ -135,7 +135,7 @@ function App() {
     gltfLoader.load('./models/testmodel0101_v2.gltf', (gltf) => {
       const model = gltf.scene;
       const animations = gltf.animations;
-      
+
 
       model.traverse((child) => {
         if (child instanceof THREE.Mesh) {
@@ -338,16 +338,15 @@ function App() {
     <>
       <div className='noise'></div>
       <div className={`loading ${isModelLoaded ? "hidden" : ""}`}>
-      <div className='loading-wrapper'>
-        <img className='loading-img' src={'./images/loading.gif'} alt="Loading" />
-        <p className='loading-text'>Loading...</p>
+        <div className='loading-wrapper'>
+          <img className='loading-img' src={'./images/loading.gif'} alt="Loading" />
+          <p className='loading-text'>Loading...</p>
+        </div>
       </div>
-    </div>
       <canvas
-        className={`canvas ${isModelLoaded ? "loaded" : ""}`}
+        className={'canvas'}
         id="canvas"
         style={{
-          display: isModelLoaded ? "block" : "none", // モデルが読み込まれるまで非表示
           width: "100vw",
           height: "100vh",
           touchAction: "none"
