@@ -168,7 +168,7 @@ function App() {
     });
 
     // 子モデルをロードして追加
-    gltfLoader.load("${basePath}models/testmodel_child_.gltf", (gltf) => {
+    gltfLoader.load('${basePath}models/testmodel_child_.gltf', (gltf) => {
       const childModel = gltf.scene;
       const childAnimations = gltf.animations;
 
@@ -335,7 +335,7 @@ function App() {
       <div className='noise'></div>
       {!isModelLoaded && <div className="loading">
         <div className='loading-wrapper'>
-        <img className='loading-img' src="${basePath}images/loading.gif" alt="Loading" />
+        <img className='loading-img' src={'${basePath}images/loading.gif'} alt="Loading" />
         <p className='loading-text'>
             Loading...
           </p>
@@ -354,7 +354,7 @@ function App() {
       <div className='container'>
         <div className="inner">
           <div className="img2025">
-            <img src="${basePath}images/2025.svg" alt="二〇二五" />
+            <img src={'${basePath}images/2025.svg'} alt="二〇二五" />
           </div>
           <div className="text">
             <p>
@@ -364,7 +364,7 @@ function App() {
             </p>
           </div>
           <div className="copy-text">
-            <img src="${basePath}images/text_2.svg" alt="日の目を見る" width="174" height="680" />
+            <img src={'${basePath}images/text_2.svg'} alt="日の目を見る" width="174" height="680" />
           </div>
         </div>
       </div>
