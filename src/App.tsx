@@ -16,7 +16,7 @@ function App() {
   // カメラの回転角度を管理する変数
   const cameraAngles = useRef({ horizontal: 0, vertical: 0 });
   // カメラの初期位置を保存 
-  const initialPosition = useRef({ x: 3.5, y: 1, z: -10 });
+  const initialPosition = useRef({ x: 4, y: 1, z: -10 });
   // カメラが注視する目標点
   const target = new THREE.Vector3(0.25, 0.55, 0);
   // 水面を管理するための参照変数
@@ -62,7 +62,7 @@ function App() {
     gsap.to(camera.position, {
       x: initialPosition.current.x, // 目標位置を通常の初期位置に設定
       y: initialPosition.current.y, // 目標位置を通常の初期位置に設定
-      duration: 3, // アニメーションの長さ（秒）
+      duration: 3.5, // アニメーションの長さ（秒）
       ease: "circ.out", // イージング効果
       onUpdate: () => {
         camera.lookAt(target); // アニメーション中も常に注視点を向く
@@ -337,14 +337,12 @@ function App() {
   return (
     <>
       <div className='noise'></div>
-      {!isModelLoaded && <div className="loading">
-        <div className='loading-wrapper'>
+      <div className={`loading ${isModelLoaded ? "hidden" : ""}`}>
+      <div className='loading-wrapper'>
         <img className='loading-img' src={'./images/loading.gif'} alt="Loading" />
-        <p className='loading-text'>
-            Loading...
-          </p>
-        </div>
-      </div>}
+        <p className='loading-text'>Loading...</p>
+      </div>
+    </div>
       <canvas
         className={`canvas ${isModelLoaded ? "loaded" : ""}`}
         id="canvas"

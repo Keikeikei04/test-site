@@ -19,7 +19,14 @@ body {
     background-color: #fff;
     color: #000;
     font-size: 2rem;
-    z-index: 1;
+    z-index: 3;
+    opacity: 1;
+    transition: opacity 3s ease-in-out;
+}
+
+.loading.hidden {
+    opacity: 0; /* 完全に透明に */
+    pointer-events: none; /* マウスイベントを無効化 */
 }
 
 .loading-wrapper{
