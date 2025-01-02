@@ -7,6 +7,43 @@ body {
     position: relative;
 }
 
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    color: #000;
+    font-size: 2rem;
+    z-index: 1;
+}
+
+.loading-wrapper{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width:120px;
+    gap:0.25rem;
+}
+
+.loading-img{
+    width:100%;
+    height: auto;
+}
+
+.loading-text{
+    text-align: center;
+    margin: 0;
+    font-size: 0.875rem;
+    color:#890000;
+    font-family: 'Source Han Serif', serif;
+    font-weight: 800;
+}
+
 .noise {
     animation: noise 16s steps(10) infinite;
     background: url("/textures/noise/noise-textures.png");
@@ -70,6 +107,8 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
+    transition: opacity 1s ease-in-out;
+
 }
 
 .container {
@@ -78,7 +117,8 @@ canvas {
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
-    pointer-events: none; /* マウスイベントを無効化 */
+    pointer-events: none;
+    /* マウスイベントを無効化 */
 
     @media screen and (max-width: 768px) {
         padding: 2rem;
@@ -96,7 +136,7 @@ canvas {
 .img2025 {
     width: 122px;
     height: auto;
-    
+
     img {
         width: 100%;
         height: 100%;
@@ -104,7 +144,7 @@ canvas {
 
     @media screen and (max-width: 768px) {
         width: 88px;
-}
+    }
 
 }
 
@@ -120,11 +160,11 @@ canvas {
     }
 
     @media screen and (max-width: 768px) {
-            width: 240px;
+        width: 240px;
 
-            p {
-                font-size: 14px;
-            }
+        p {
+            font-size: 14px;
+        }
     }
 }
 
@@ -134,7 +174,7 @@ canvas {
     width: auto;
     position: absolute;
     right: -1.75rem;
-    top:-0.25rem;
+    top: -0.25rem;
     margin-right: 2rem;
 
     img {
@@ -147,19 +187,22 @@ canvas {
         height: 85%;
         right: -1rem;
     }
-    
+
 }
 
-.fadein{
-    animation: fadeIn 2.5s ease-in-out forwards; /* 2秒間フェードイン */
+.fadein {
+    animation: fadeIn 2.5s ease-in-out forwards;
+    /* 2秒間フェードイン */
     background-color: white;
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 2; /* コンテンツの上に表示 */
-    pointer-events: none; /* マウスイベントを無効化 */
+    z-index: 2;
+    /* コンテンツの上に表示 */
+    pointer-events: none;
+    /* マウスイベントを無効化 */
 
 }
 
@@ -167,6 +210,7 @@ canvas {
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }

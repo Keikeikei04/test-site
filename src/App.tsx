@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -7,6 +7,8 @@ import gsap from "gsap";
 import { Water } from "three/examples/jsm/objects/Water.js";
 
 function App() {
+  // モデルの読み込み状態
+  const [isModelLoaded, setIsModelLoaded] = useState(false);
   // マウス操作の状態を管理するためのフラグ
   const isDragging = useRef(false);
   // マウスの前回位置を記録する変数
@@ -127,6 +129,7 @@ function App() {
     gltfLoader.load("./models/testmodel0101_v2.gltf", (gltf) => {
       const model = gltf.scene;
       const animations = gltf.animations;
+      
 
       model.traverse((child) => {
         if (child instanceof THREE.Mesh) {
@@ -135,6 +138,9 @@ function App() {
         }
       });
       scene.add(model);
+
+      setIsModelLoaded(true);
+
 
       // アニメーションを設定
       if (animations && animations.length > 0) {
@@ -156,6 +162,7 @@ function App() {
 
         animate();
       }
+
     });
 
     // 子モデルをロードして追加
@@ -324,11 +331,28 @@ function App() {
   return (
     <>
       <div className='noise'></div>
-      <canvas id="canvas" style={{ width: "100vw", height: "100vh", touchAction: "none" }}></canvas>
+      {!isModelLoaded && <div className="loading">
+        <div className='loading-wrapper'>
+            <img className='loading-img' src="/loading.webp" alt="Loading" />
+          <p className='loading-text'>
+            Loading...
+          </p>
+        </div>
+      </div>}
+      <canvas
+        className={`canvas ${isModelLoaded ? "loaded" : ""}`}
+        id="canvas"
+        style={{
+          display: isModelLoaded ? "block" : "none", // モデルが読み込まれるまで非表示
+          width: "100vw",
+          height: "100vh",
+          touchAction: "none"
+        }}>
+      </canvas>
       <div className='container'>
         <div className="inner">
           <div className="img2025">
-            <img src="./2025.svg" alt="" />
+            <img src="./2025.svg" alt="二〇二五" />
           </div>
           <div className="text">
             <p>
@@ -338,12 +362,12 @@ function App() {
             </p>
           </div>
           <div className="copy-text">
-            <img src="./text_2.svg" alt="" width="174" height="680" />
+            <img src="./text_2.svg" alt="日の目を見る" width="174" height="680" />
           </div>
         </div>
       </div>
       <div className="fadein">
-</div>
+      </div>
     </>
   );
 }
