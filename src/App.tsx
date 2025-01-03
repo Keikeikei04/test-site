@@ -25,20 +25,26 @@ function App() {
   useEffect(() => {
 
     const updateBrowserMenuHeight = () => {
-      const visualViewportHeight = window.visualViewport?.height || window.innerHeight;
-      const fullViewportHeight = window.innerHeight;
-  
-      // スマホブラウザのメニューバーの高さを計算
-      const browserMenuBarHeight = fullViewportHeight - visualViewportHeight;
-
-      //CSS変数に設定
+      const fullViewportHeight = window.innerHeight; // 画面全体の高さ
+      const visualViewportHeight = window.visualViewport?.height || fullViewportHeight; // 表示可能なビューポートの高さ
+    
+      // メニューバーの高さを計算
+      const browserMenuBarHeight = Math.max(0, fullViewportHeight - visualViewportHeight);
+    
+      // CSS変数に設定
       document.documentElement.style.setProperty('--browser-menu-height', `${browserMenuBarHeight}px`);
-
     };
-
-    // 初期ロード時とビューポートリサイズ時に適用
-updateBrowserMenuHeight();
-window.visualViewport?.addEventListener('resize', updateBrowserMenuHeight);
+    
+    // 初期ロード時に実行
+    updateBrowserMenuHeight();
+    
+    // ビューポートサイズ変更時に更新
+    window.addEventListener('resize', updateBrowserMenuHeight);
+    
+    // visualViewportが存在する場合、サイズ変更時に再計算
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateBrowserMenuHeight);
+    }
 
 
     const setInitialPosition = () => {
