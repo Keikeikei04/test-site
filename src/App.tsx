@@ -24,29 +24,22 @@ function App() {
 
   useEffect(() => {
 
-    const adjustContentPadding = () => {
-      const windowWrapper = document.querySelector('.window-wrapper') as HTMLDivElement;
+    const updateBrowserMenuHeight = () => {
       const visualViewportHeight = window.visualViewport?.height || window.innerHeight;
       const fullViewportHeight = window.innerHeight;
   
       // スマホブラウザのメニューバーの高さを計算
       const browserMenuBarHeight = fullViewportHeight - visualViewportHeight;
-  
-      if (browserMenuBarHeight > 0 && window.innerWidth <= 768) {
-        windowWrapper.style.paddingBottom = `${browserMenuBarHeight}px`;
-      } else {
-        windowWrapper.style.paddingBottom = '0'; // デスクトップ時はリセット
-      }
+
+      //CSS変数に設定
+      document.documentElement.style.setProperty('--browser-menu-height', `${browserMenuBarHeight}px`);
+
     };
 
     // 初期ロード時とビューポートリサイズ時に適用
-  adjustContentPadding();
-  window.visualViewport?.addEventListener('resize', adjustContentPadding);
+updateBrowserMenuHeight();
+window.visualViewport?.addEventListener('resize', updateBrowserMenuHeight);
 
-
-  // 初期ロード時とビューポートリサイズ時に適用
-  adjustContentPadding();
-  window.visualViewport?.addEventListener('resize', adjustContentPadding);
 
     const setInitialPosition = () => {
       if (window.innerWidth <= 768) {
@@ -443,9 +436,6 @@ function App() {
       canvas.removeEventListener("touchstart", handleTouchStart);
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
-
-    window.visualViewport?.removeEventListener('resize', adjustContentPadding);
-
 
     };
   }, [isModelLoaded]);

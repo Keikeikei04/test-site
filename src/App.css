@@ -1,9 +1,6 @@
 body {
     margin: 0;
     overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-    position: relative;
 }
 
 .loading {
@@ -28,24 +25,24 @@ body {
     pointer-events: none;
 }
 
-.loading-wrapper{
+.loading-wrapper {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    width:120px;
-    gap:0.25rem;
+    width: 120px;
+    gap: 0.25rem;
 }
 
-.loading-img{
-    width:100%;
+.loading-img {
+    width: 100%;
     height: auto;
 }
 
-.loading-text{
+.loading-text {
     text-align: center;
     margin: 0;
     font-size: 0.875rem;
-    color:#890000;
+    color: #890000;
     font-family: 'Source Han Serif', serif;
     font-weight: 800;
 }
@@ -108,26 +105,40 @@ body {
 }
 
 canvas {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     transition: opacity 1s ease-in-out;
 }
 
+:root {
+    --browser-menu-height: 0px;
+    /* デフォルト値 */
+}
+
 .container {
     position: absolute;
-    padding: 4rem;
+    padding-top: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-bottom: calc(4rem + var(--browser-menu-height));
+
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
     pointer-events: none;
-    /* マウスイベントを無効化 */
 
     @media screen and (max-width: 768px) {
-        padding: 2rem;
+        padding-top: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-bottom: calc(2rem + var(--browser-menu-height));
+        /* 既存の20pxに動的値を追加 */
     }
+
+
 
 }
 
