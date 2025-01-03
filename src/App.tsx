@@ -24,22 +24,6 @@ function App() {
 
   useEffect(() => {
 
-    const updateBrowserMenuHeight = () => {
-      const visualViewportHeight = window.visualViewport?.height || window.innerHeight;
-      const fullViewportHeight = window.innerHeight;
-  
-      // スマホブラウザのメニューバーの高さを計算
-      const browserMenuBarHeight = fullViewportHeight - visualViewportHeight;
-
-      //CSS変数に設定
-      document.documentElement.style.setProperty('--browser-menu-height', `${browserMenuBarHeight}px`);
-
-    };
-
-    // 初期ロード時とビューポートリサイズ時に適用
-updateBrowserMenuHeight();
-window.visualViewport?.addEventListener('resize', updateBrowserMenuHeight);
-
 
     const setInitialPosition = () => {
       if (window.innerWidth <= 768) {
@@ -442,7 +426,6 @@ window.visualViewport?.addEventListener('resize', updateBrowserMenuHeight);
 
   return (
     <>
-    <div className='window-wrapper'>
     <div className='noise'></div>
       <div className={`loading ${isModelLoaded ? "hidden" : ""}`}>
         <div className='loading-wrapper'>
@@ -478,7 +461,6 @@ window.visualViewport?.addEventListener('resize', updateBrowserMenuHeight);
       </div>
       <div className="fadein">
       </div>
-    </div>
     </>
   );
 }

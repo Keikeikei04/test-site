@@ -120,10 +120,7 @@ canvas {
 
 .container {
     position: absolute;
-    padding-top: 4rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    padding-bottom: calc(4rem + var(--browser-menu-height));
+    padding: 4rem;
 
     width: 100vw;
     height: 100vh;
@@ -135,7 +132,6 @@ canvas {
         padding-left: 2rem;
         padding-right: 2rem;
         padding-bottom: calc(2rem + var(--browser-menu-height));
-        /* 既存の20pxに動的値を追加 */
     }
 
 
