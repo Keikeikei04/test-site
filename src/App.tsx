@@ -24,6 +24,30 @@ function App() {
 
   useEffect(() => {
 
+    const adjustContentPadding = () => {
+      const windowWrapper = document.querySelector('.window-wrapper') as HTMLDivElement;
+      const visualViewportHeight = window.visualViewport?.height || window.innerHeight;
+      const fullViewportHeight = window.innerHeight;
+  
+      // スマホブラウザのメニューバーの高さを計算
+      const browserMenuBarHeight = fullViewportHeight - visualViewportHeight;
+  
+      if (browserMenuBarHeight > 0 && window.innerWidth <= 768) {
+        windowWrapper.style.paddingBottom = `${browserMenuBarHeight}px`;
+      } else {
+        windowWrapper.style.paddingBottom = '0'; // デスクトップ時はリセット
+      }
+    };
+
+    // 初期ロード時とビューポートリサイズ時に適用
+  adjustContentPadding();
+  window.visualViewport?.addEventListener('resize', adjustContentPadding);
+
+
+  // 初期ロード時とビューポートリサイズ時に適用
+  adjustContentPadding();
+  window.visualViewport?.addEventListener('resize', adjustContentPadding);
+
     const setInitialPosition = () => {
       if (window.innerWidth <= 768) {
         initialPosition.current = { x: 2.5, y: 1, z: -12 }; // モバイル用
@@ -410,6 +434,7 @@ function App() {
     renderLoop();
 
     return () => {
+
       window.removeEventListener("resize", handleResize);
       canvas.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
@@ -419,12 +444,16 @@ function App() {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
 
+    window.visualViewport?.removeEventListener('resize', adjustContentPadding);
+
+
     };
   }, [isModelLoaded]);
 
   return (
     <>
-      <div className='noise'></div>
+    <div className='window-wrapper'>
+    <div className='noise'></div>
       <div className={`loading ${isModelLoaded ? "hidden" : ""}`}>
         <div className='loading-wrapper'>
           <img className='loading-img' src={'./images/loading.gif'} alt="Loading" />
@@ -459,6 +488,7 @@ function App() {
       </div>
       <div className="fadein">
       </div>
+    </div>
     </>
   );
 }
