@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/test-site/', // GitHub Pages のプロジェクト名を指定
+  base: '/newyear2025/', // GitHub Pages のプロジェクト名を指定
   build: {
     outDir: 'docs', // GitHub Pages のために出力先を設定
   },
