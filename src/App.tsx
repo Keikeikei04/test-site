@@ -26,7 +26,7 @@ function App() {
 
     const setInitialPosition = () => {
       if (window.innerWidth <= 768) {
-        initialPosition.current = { x: 1.5, y: 1, z: -9 }; // モバイル用
+        initialPosition.current = { x: 2.5, y: 1, z: -12 }; // モバイル用
       } else {
         initialPosition.current = { x: 3.5, y: 1, z: -10 }; // デスクトップ用
       }
